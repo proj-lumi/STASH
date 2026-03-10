@@ -163,7 +163,7 @@ class _SummaryCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '\$${income.toStringAsFixed(2)}',
+                    '₱${income.toStringAsFixed(2)}',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           color: AppColors.income,
                           fontWeight: FontWeight.bold,
@@ -181,7 +181,7 @@ class _SummaryCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '\$${expense.toStringAsFixed(2)}',
+                    '₱${expense.toStringAsFixed(2)}',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           color: AppColors.expense,
                           fontWeight: FontWeight.bold,
@@ -199,7 +199,7 @@ class _SummaryCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    '\$${net.toStringAsFixed(2)}',
+                    '₱${net.toStringAsFixed(2)}',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
                           color: net >= 0 ? AppColors.income : AppColors.expense,
                           fontWeight: FontWeight.bold,
@@ -314,7 +314,7 @@ class _ExpensePieChart extends StatelessWidget {
                           ),
                           const SizedBox(width: 4),
                           Text(
-                            '$name: \$${amount.toStringAsFixed(2)}',
+                            '$name: ₱${amount.toStringAsFixed(2)}',
                             style: Theme.of(context).textTheme.bodySmall,
                           ),
                         ],
@@ -387,7 +387,7 @@ class _BarChartSection extends StatelessWidget {
                         if (i < 0 || i >= trends.length) return null;
                         final label = rodIndex == 0 ? 'Income' : 'Expense';
                         return BarTooltipItem(
-                          '$label\n\$${rod.toY.toStringAsFixed(2)}',
+                          '$label\n₱${rod.toY.toStringAsFixed(2)}',
                           const TextStyle(color: Colors.white),
                         );
                       },
@@ -402,7 +402,7 @@ class _BarChartSection extends StatelessWidget {
                         getTitlesWidget: (v, meta) {
                           if (v == 0 || v == maxVal) {
                             return Text(
-                              '\$${v.toInt()}',
+                              '₱${v.toInt()}',
                               style: const TextStyle(fontSize: 12, color: Colors.black),
                             );
                           }

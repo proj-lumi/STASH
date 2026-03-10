@@ -194,7 +194,7 @@ class _TransactionTile extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
                   child: Text(
-                    '${isIncome ? '+' : '-'}\$${amount.toStringAsFixed(2)}',
+                    '${isIncome ? '+' : '-'}₱${amount.toStringAsFixed(2)}',
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       color: amountColor,

@@ -206,14 +206,34 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           children: [
             Text('Amount', style: Theme.of(context).textTheme.titleSmall),
             const SizedBox(height: 8),
-            TextField(
-              controller: _amountController,
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(
-                prefixText: '\$ ',
-                hintText: '0.00',
-              ),
-              style: Theme.of(context).textTheme.headlineSmall,
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: Text(
+                    '₱',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: TextField(
+                    controller: _amountController,
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    decoration: InputDecoration(
+                      hintText: '0.00',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(AppTheme.radiusXl),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                    ),
+                    style: Theme.of(context).textTheme.headlineSmall,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -368,10 +388,34 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           children: [
             Text('Transfer fee (optional)', style: Theme.of(context).textTheme.titleSmall),
             const SizedBox(height: 8),
-            TextField(
-              controller: _transferFeeController,
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
-              decoration: const InputDecoration(prefixText: '\$ '),
+            Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: Text(
+                    '₱',
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: TextField(
+                    controller: _transferFeeController,
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    decoration: InputDecoration(
+                      hintText: '0.00',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(AppTheme.radiusXl),
+                      ),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                    ),
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

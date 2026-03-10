@@ -127,7 +127,7 @@ class AccountsScreen extends ConsumerWidget {
                 keyboardType:
                     const TextInputType.numberWithOptions(decimal: true),
                 decoration: const InputDecoration(
-                    labelText: 'Initial balance', prefixText: '\$ '),
+                    labelText: 'Initial balance', prefixText: '₱ '),
               ),
             ],
           ),
@@ -193,7 +193,7 @@ class _TotalBalanceCard extends StatelessWidget {
             ),
             const SizedBox(height: 4),
             Text(
-              '\$${total.toStringAsFixed(2)}',
+              '₱${total.toStringAsFixed(2)}',
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                     color: Theme.of(context).colorScheme.onPrimary,
                     fontWeight: FontWeight.bold,
@@ -236,7 +236,7 @@ class _AccountTile extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  '\$${balance.toStringAsFixed(2)}',
+                  '₱${balance.toStringAsFixed(2)}',
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),

@@ -72,34 +72,53 @@ class SettingsScreen extends ConsumerWidget {
             ),
             const SizedBox(height: 24),
             Card(
-              child: ListTile(
-                title: const Text(
-                  'Clear all data',
-                  style: TextStyle(
-                    color: AppColors.destructive,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                trailing: const Icon(Icons.delete_outline,
-                    color: AppColors.destructive),
-                onTap: () => _confirmClearData(context, ref),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Card(
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'Budget App',
-                      style: Theme.of(context).textTheme.titleMedium,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Stash',
+                                style: Theme.of(context).textTheme.titleMedium,
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                'Offline budgeting. No account, no cloud. Your data stays on this device.',
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 4),
+                    const SizedBox(height: 16),
+                    const Divider(),
+                    const SizedBox(height: 16),
                     Text(
-                      'Offline budgeting. No account, no cloud. Your data stays on this device.',
-                      style: Theme.of(context).textTheme.bodySmall,
+                      'Data Management',
+                      style: Theme.of(context).textTheme.titleSmall,
+                    ),
+                    const SizedBox(height: 12),
+                    ListTile(
+                      contentPadding: EdgeInsets.zero,
+                      title: const Text(
+                        'Clear all data',
+                        style: TextStyle(
+                          color: AppColors.destructive,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      trailing: const Icon(Icons.delete_outline,
+                          color: AppColors.destructive),
+                      onTap: () => _confirmClearData(context, ref),
                     ),
                   ],
                 ),

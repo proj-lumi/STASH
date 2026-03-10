@@ -201,7 +201,7 @@ class _BudgetCard extends StatelessWidget {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       Text(
-                        '\$${spent.toStringAsFixed(2)} of \$${budget.toStringAsFixed(2)}',
+                        '₱${spent.toStringAsFixed(2)} of ₱${budget.toStringAsFixed(2)}',
                         style: Theme.of(context).textTheme.bodySmall,
                       ),
                     ],
@@ -223,7 +223,7 @@ class _BudgetCard extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              'Remaining: \$${remaining.toStringAsFixed(2)}',
+              'Remaining: ₱${remaining.toStringAsFixed(2)}',
               style: Theme.of(context).textTheme.bodySmall,
             ),
             const SizedBox(height: 8),

@@ -131,7 +131,6 @@ class AppTheme {
   static ThemeData dark({double fontSize = 16.0}) {
     final base = ThemeData.dark(useMaterial3: true);
     return base.copyWith(
-      // revert to accent for surface to make cards stand out in dark mode
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primary,
         onPrimary: AppColors.foregroundDark,
@@ -139,8 +138,8 @@ class AppTheme {
         onSecondary: AppColors.foregroundDark,
         surface: AppColors.accent,
         onSurface: AppColors.foregroundDark,
-        error: AppColors.destructive,
-        outline: AppColors.borderDark,
+        error: AppColors.secondary,
+        outline: AppColors.secondary,
       ),
       scaffoldBackgroundColor: AppColors.backgroundDark,
       appBarTheme: const AppBarTheme(
@@ -153,9 +152,8 @@ class AppTheme {
           fontWeight: FontWeight.w600,
         ),
       ),
-      // use a slightly lighter accent shade for cards to boost contrast
       cardTheme: CardThemeData(
-        color: AppColors.accent.withOpacity(0.9),
+        color: AppColors.accent.withOpacity(0.15),
         elevation: 1,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radiusCard),
@@ -163,13 +161,13 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.accent.withOpacity(0.8),
+        fillColor: AppColors.accent.withOpacity(0.15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radiusXl),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radiusXl),
-          borderSide: const BorderSide(color: AppColors.borderDark),
+          borderSide: const BorderSide(color: AppColors.secondary),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radiusXl),
@@ -189,7 +187,7 @@ class AppTheme {
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.backgroundDark,
-        selectedItemColor: AppColors.primary,
+        selectedItemColor: AppColors.secondary,
         unselectedItemColor: AppColors.foregroundDark,
         type: BottomNavigationBarType.fixed,
       ),
