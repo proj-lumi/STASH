@@ -245,12 +245,18 @@ class _ExpensePieChart extends StatelessWidget {
   final Map<int, double> expenseByCategory;
   final CategoryRepository? categoryRepo;
 
+  // Vibrant, distinct colors with good contrast
   static const _colors = [
-    AppColors.deposit,
-    AppColors.primary,
-    AppColors.accent,
-    AppColors.secondary,
-    AppColors.foregroundLight,
+    Color(0xFF236AB9), // Deep Blue
+    Color(0xFF609CE1), // Sky Blue
+    Color(0xFF2E7D32), // Forest Green
+    Color(0xFFC62828), // Deep Red
+    Color(0xFFF57C00), // Orange
+    Color(0xFF6A1B9A), // Deep Purple
+    Color(0xFF00796B), // Teal
+    Color(0xFFD32F2F), // Bright Red
+    Color(0xFF1565C0), // Cobalt
+    Color(0xFFEF6C00), // Dark Orange
   ];
 
   @override
@@ -275,20 +281,25 @@ class _ExpensePieChart extends StatelessWidget {
       );
     }
 
+    // Determine text color based on brightness (white for dark mode, black for light mode)
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    final textColor = isDarkMode ? const Color(0xFFFFFFFF) : const Color(0xFF000000);
+
     final entries = expenseByCategory.entries.toList();
     final sections = <PieChartSectionData>[];
     for (var i = 0; i < entries.length; i++) {
       final pct = entries[i].value / total;
+      final color = _colors[i % _colors.length];
       sections.add(
         PieChartSectionData(
           value: entries[i].value,
           title: '${(pct * 100).toStringAsFixed(0)}%',
-          color: _colors[i % _colors.length],
+          color: color,
           radius: 60,
           titleStyle: TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w500,
-            color: _getPieTitleColor(context),
+            color: textColor,
           ),
         ),
       );
@@ -322,6 +333,7 @@ class _ExpensePieChart extends StatelessWidget {
                       final id = e.value.key;
                       final amount = e.value.value;
                       final name = names[id] ?? 'Category #$id';
+                      final color = _colors[e.key % _colors.length];
                       return Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -329,7 +341,7 @@ class _ExpensePieChart extends StatelessWidget {
                             width: 12,
                             height: 12,
                             decoration: BoxDecoration(
-                              color: _colors[e.key % _colors.length],
+                              color: color,
                               shape: BoxShape.circle,
                             ),
                           ),
@@ -348,10 +360,6 @@ class _ExpensePieChart extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Color _getPieTitleColor(BuildContext context) {
-    return Theme.of(context).colorScheme.onSurface;
   }
 
   Future<Map<int, String>> _categoryNames(

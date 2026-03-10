@@ -109,15 +109,15 @@ class SettingsScreen extends ConsumerWidget {
                     const SizedBox(height: 12),
                     ListTile(
                       contentPadding: EdgeInsets.zero,
-                      title: const Text(
+                      title: Text(
                         'Clear all data',
                         style: TextStyle(
-                          color: AppColors.destructive,
+                          color: Theme.of(context).colorScheme.error,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      trailing: const Icon(Icons.delete_outline,
-                          color: AppColors.destructive),
+                      trailing: Icon(Icons.delete_outline,
+                          color: Theme.of(context).colorScheme.error),
                       onTap: () => _confirmClearData(context, ref),
                     ),
                   ],
