@@ -1,5 +1,5 @@
-name: budget_app
-description: "A new Flutter project."
+name: Stash
+description: "A Mobile Budgeting App"
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -38,6 +38,7 @@ dependencies:
   flutter_riverpod: ^2.6.1
   fl_chart: ^0.69.0
   intl: ^0.19.0
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +49,12 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
+
+flutter_launcher_icons:
+  android: true
+  image_path_android: "assets/icon/icon.png"
+  adaptive_icon_background: "assets/icon/background.png"
+  adaptive_icon_foreground: "assets/icon/foreground.png"
 
 # The following section is specific to Flutter packages.
 flutter:

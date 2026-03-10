@@ -1,6 +1,6 @@
-import 'package:budget_app/core/theme/app_theme.dart';
-import 'package:budget_app/data/models/account.dart';
-import 'package:budget_app/data/providers/app_providers.dart';
+import 'package:Stash/core/theme/app_theme.dart';
+import 'package:Stash/data/models/account.dart';
+import 'package:Stash/data/providers/app_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -109,7 +109,7 @@ class AccountsScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                value: selectedType,
+                initialValue: selectedType,
                 decoration: const InputDecoration(labelText: 'Type'),
                 items: ['Cash', 'E-Wallet', 'Bank'].map((type) {
                   return DropdownMenuItem<String>(

@@ -1,8 +1,8 @@
-import 'package:budget_app/core/theme/app_theme.dart';
-import 'package:budget_app/data/models/account.dart';
-import 'package:budget_app/data/models/category.dart';
-import 'package:budget_app/data/models/transaction.dart';
-import 'package:budget_app/data/providers/app_providers.dart';
+import 'package:Stash/core/theme/app_theme.dart';
+import 'package:Stash/data/models/account.dart';
+import 'package:Stash/data/models/category.dart';
+import 'package:Stash/data/models/transaction.dart';
+import 'package:Stash/data/providers/app_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -240,7 +240,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                     .where((c) => c.id == _selectedCategory?.id)
                     .firstOrNull ?? _selectedCategory;
                 return DropdownButtonFormField<Category?>(
-                  value: value,
+                  initialValue: value,
                   decoration: const InputDecoration(
                     hintText: 'Select category',
                   ),
@@ -280,7 +280,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                     .where((a) => a.id == _selectedAccount?.id)
                     .firstOrNull ?? _selectedAccount;
                 return DropdownButtonFormField<Account?>(
-                  value: value,
+                  initialValue: value,
                   decoration: const InputDecoration(
                     hintText: 'Select account',
                   ),
@@ -321,7 +321,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                     Text('From account', style: Theme.of(context).textTheme.titleSmall),
                     const SizedBox(height: 8),
                     DropdownButtonFormField<Account?>(
-                      value: fromVal,
+                      initialValue: fromVal,
                       items: [
                         const DropdownMenuItem(value: null, child: Text('Select')),
                         ...accounts.map((a) => DropdownMenuItem(value: a, child: Text(a.name))),
@@ -342,7 +342,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                     Text('To account', style: Theme.of(context).textTheme.titleSmall),
                     const SizedBox(height: 8),
                     DropdownButtonFormField<Account?>(
-                      value: toVal,
+                      initialValue: toVal,
                       items: [
                         const DropdownMenuItem(value: null, child: Text('Select')),
                         ...accounts.map((a) => DropdownMenuItem(value: a, child: Text(a.name))),

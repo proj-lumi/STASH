@@ -1,5 +1,5 @@
-import 'package:budget_app/data/models/account.dart';
-import 'package:budget_app/data/models/transaction.dart';
+import 'package:Stash/data/models/account.dart';
+import 'package:Stash/data/models/transaction.dart';
 import 'package:isar/isar.dart';
 
 class AccountRepository {

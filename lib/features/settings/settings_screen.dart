@@ -1,6 +1,6 @@
-import 'package:budget_app/core/theme/app_theme.dart';
-import 'package:budget_app/data/providers/app_providers.dart';
-import 'package:budget_app/data/settings/settings_repository.dart';
+import 'package:Stash/core/theme/app_theme.dart';
+import 'package:Stash/data/providers/app_providers.dart';
+import 'package:Stash/data/settings/settings_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
