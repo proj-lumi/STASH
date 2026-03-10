@@ -39,16 +39,16 @@ class SettingsScreen extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: ['Small', 'Medium', 'Large'].asMap().entries.map((e) {
-                        // reduced scale range to 14/16/18
+                        // reduced scale range to 14/16/25
                         final size = e.key == 0
                             ? 14.0
                             : e.key == 1
                                 ? 16.0
-                                : 18.0;
+                                : 25.0;
                         final current = settings?.fontSize ?? 16.0;
                         final isSelected = (e.key == 0 && current <= 15) ||
-                            (e.key == 1 && current > 15 && current < 17) ||
-                            (e.key == 2 && current >= 17);
+                            (e.key == 1 && current > 15 && current < 21) ||
+                            (e.key == 2 && current >= 21);
                         return ChoiceChip(
                           label: Text(e.value),
                           selected: isSelected,

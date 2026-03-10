@@ -29,7 +29,7 @@ class AppColors {
   static const Color destructive = Color(0xFF133863);
 
   /// Semantic colors (kept monochromatic).
-  static const Color income = Color(0xFF609CE1);
+  static const Color deposit = Color(0xFF609CE1);
   static const Color expense = Color(0xFF133863);
   static const Color transfer = Color(0xFF236AB9);
 

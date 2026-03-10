@@ -51,7 +51,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         _showSnack('Select account and category');
         return;
       }
-    } else if (_type == TransactionType.income) {
+    } else if (_type == TransactionType.deposit) {
       if (_selectedAccount == null) {
         _showSnack('Select account');
         return;
@@ -81,7 +81,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           account: _selectedAccount!,
           category: _selectedCategory,
         );
-      } else if (_type == TransactionType.income) {
+      } else if (_type == TransactionType.deposit) {
         await transactionRepo.addTransaction(
           t,
           account: _selectedAccount!,
@@ -164,7 +164,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         child: Row(
           children: [
             _typeChip(TransactionType.expense, 'Expense'),
-            _typeChip(TransactionType.income, 'Income'),
+            _typeChip(TransactionType.deposit, 'Deposit'),
             _typeChip(TransactionType.transfer, 'Transfer'),
           ],
         ),

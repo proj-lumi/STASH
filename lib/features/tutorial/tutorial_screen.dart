@@ -30,7 +30,7 @@ class TutorialScreen extends StatelessWidget {
             _StepCard(
               title: '2. Record transactions',
               body:
-                  'Use the Add tab to log income, expenses, or transfers. For expenses, choose a category. For transfers, select from and to accounts.',
+                  'Use the Add tab to log deposits, expenses, or transfers. For expenses, choose a category. For transfers, select from and to accounts.',
             ),
             _StepCard(
               title: '3. Set budgets',
@@ -40,7 +40,7 @@ class TutorialScreen extends StatelessWidget {
             _StepCard(
               title: '4. View statistics',
               body:
-                  'The Statistics tab shows monthly income, expenses, net balance, and charts for spending by category and trends over time.',
+                  'The Statistics tab shows monthly deposits, expenses, net balance, and charts for spending by category and trends over time.',
             ),
             const SizedBox(height: 24),
             OutlinedButton.icon(

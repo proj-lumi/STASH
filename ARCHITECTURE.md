@@ -28,7 +28,7 @@
 - **Cards:** `Card` or `Container` with white bg, `BorderRadius.circular(16)`, padding 16–24.
 - **Inputs:** White bg, border `#559F54`, focus ring `#236ABA`.
 - **Buttons:** Primary filled `#236ABA`; secondary outline `#559F54`.
-- **Charts:** fl_chart for pie (expense by category) and bar (income vs expense by month).
+- **Charts:** fl_chart for pie (expense by category) and bar (deposit vs expense by month).
 
 ---
 
@@ -62,7 +62,7 @@ lib/
 1. **Isar (3 collections)**
    - **Account:** id, name, type, initialBalance. No stored balance; balance = initialBalance + sum(transactions for this account).
    - **Category:** id, name, monthlyBudget?. Seeded once; no user-created categories.
-   - **Transaction:** id, amount, dateTime, type (income|expense|transfer), notes?, transferFee?; IsarLink&lt;Account&gt; account; IsarLink&lt;Category&gt;? category; IsarLink&lt;Account&gt;? relatedAccount. One row per transfer; transferFee counts as expense in stats.
+   - **Transaction:** id, amount, dateTime, type (deposit|expense|transfer), notes?, transferFee?; IsarLink&lt;Account&gt; account; IsarLink&lt;Category&gt;? category; IsarLink&lt;Account&gt;? relatedAccount. One row per transfer; transferFee counts as expense in stats.
 
 2. **Settings (shared_preferences)**
    - Keys: `fontSize` (double), `colorMode` (string: "light" | "dark").
@@ -71,7 +71,7 @@ lib/
 3. **Repositories**
    - **AccountRepository:** CRUD, get balance (initial + sum transactions).
    - **CategoryRepository:** getAll, update monthlyBudget, seed.
-   - **TransactionRepository:** CRUD, stream by month, stats helpers (monthly income/expense by category, etc.).
+   - **TransactionRepository:** CRUD, stream by month, stats helpers (monthly deposit/expense by category, etc.).
    - **SettingsRepository:** read/write fontSize, colorMode.
 
 4. **Month Filter**

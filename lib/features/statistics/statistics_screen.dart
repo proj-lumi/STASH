@@ -23,28 +23,28 @@ class StatisticsScreen extends ConsumerWidget {
 
     return FutureBuilder<
         ({
-          double income,
+          double deposit,
           double expense,
           Map<int, double> expenseByCategory,
-          List<({int year, int month, double income, double expense})> trends,
+          List<({int year, int month, double deposit, double expense})> trends,
         })>(
       future: Future.wait([
-        transactionRepo.getMonthlyIncome(year, month),
+        transactionRepo.getMonthlyDeposit(year, month),
         transactionRepo.getMonthlyExpense(year, month),
         transactionRepo.getMonthlyExpenseByCategory(year, month),
         transactionRepo.getMonthlyTrends(6),
       ]).then((r) => (
-            income: r[0] as double,
+            deposit: r[0] as double,
             expense: r[1] as double,
             expenseByCategory: r[2] as Map<int, double>,
-            trends: r[3] as List<({int year, int month, double income, double expense})>,
+            trends: r[3] as List<({int year, int month, double deposit, double expense})>,
           )),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
           return const Center(child: CircularProgressIndicator());
         }
         final data = snapshot.data!;
-        final net = data.income - data.expense;
+        final net = data.deposit - data.expense;
         return SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -57,7 +57,7 @@ class StatisticsScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 16),
               _SummaryCard(
-                income: data.income,
+                deposit: data.deposit,
                 expense: data.expense,
                 net: net,
               ),
@@ -111,10 +111,13 @@ class _MonthSelector extends StatelessWidget {
           },
         ),
         Expanded(
-          child: Text(
-            monthName,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleMedium,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              monthName,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ),
         ),
         IconButton(
@@ -138,12 +141,12 @@ class _MonthSelector extends StatelessWidget {
 
 class _SummaryCard extends StatelessWidget {
   const _SummaryCard({
-    required this.income,
+    required this.deposit,
     required this.expense,
     required this.net,
   });
 
-  final double income;
+  final double deposit;
   final double expense;
   final double net;
 
@@ -157,17 +160,23 @@ class _SummaryCard extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  Text(
-                    'Income',
-                    style: Theme.of(context).textTheme.bodySmall,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      'Deposit',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    '₱${income.toStringAsFixed(2)}',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: AppColors.income,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      '₱${deposit.toStringAsFixed(2)}',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: AppColors.deposit,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
                   ),
                 ],
               ),
@@ -175,17 +184,23 @@ class _SummaryCard extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  Text(
-                    'Expense',
-                    style: Theme.of(context).textTheme.bodySmall,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      'Expense',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    '₱${expense.toStringAsFixed(2)}',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: AppColors.expense,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      '₱${expense.toStringAsFixed(2)}',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: AppColors.primary,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
                   ),
                 ],
               ),
@@ -193,17 +208,23 @@ class _SummaryCard extends StatelessWidget {
             Expanded(
               child: Column(
                 children: [
-                  Text(
-                    'Balance',
-                    style: Theme.of(context).textTheme.bodySmall,
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      'Balance',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                   ),
                   const SizedBox(height: 4),
-                  Text(
-                    '₱${net.toStringAsFixed(2)}',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: net >= 0 ? AppColors.income : AppColors.expense,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      '₱${net.toStringAsFixed(2)}',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: net >= 0 ? AppColors.deposit : AppColors.expense,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
                   ),
                 ],
               ),
@@ -225,7 +246,7 @@ class _ExpensePieChart extends StatelessWidget {
   final CategoryRepository? categoryRepo;
 
   static const _colors = [
-    AppColors.income,
+    AppColors.deposit,
     AppColors.primary,
     AppColors.accent,
     AppColors.secondary,
@@ -349,7 +370,7 @@ class _BarChartSection extends StatelessWidget {
     required this.trends,
   });
 
-  final List<({int year, int month, double income, double expense})> trends;
+  final List<({int year, int month, double deposit, double expense})> trends;
 
   @override
   Widget build(BuildContext context) {
@@ -364,7 +385,7 @@ class _BarChartSection extends StatelessWidget {
 
     final maxY = trends.fold<double>(
       0,
-      (m, t) => [m, t.income, t.expense].reduce((a, b) => a > b ? a : b),
+      (m, t) => [m, t.deposit, t.expense].reduce((a, b) => a > b ? a : b),
     );
     final maxVal = _getRoundMaxValue(maxY * 1.2);
 
@@ -385,7 +406,7 @@ class _BarChartSection extends StatelessWidget {
                       getTooltipItem: (group, groupIndex, rod, rodIndex) {
                         final i = group.x.toInt();
                         if (i < 0 || i >= trends.length) return null;
-                        final label = rodIndex == 0 ? 'Income' : 'Expense';
+                        final label = rodIndex == 0 ? 'Deposit' : 'Expense';
                         return BarTooltipItem(
                           '$label\n₱${rod.toY.toStringAsFixed(2)}',
                           const TextStyle(color: Colors.white),
@@ -403,7 +424,9 @@ class _BarChartSection extends StatelessWidget {
                           if (v == 0 || v == maxVal) {
                             return Text(
                               '₱${v.toInt()}',
-                              style: const TextStyle(fontSize: 12, color: Colors.black),
+                              style: TextStyle(
+                                  fontSize: 12,
+                                  color: Theme.of(context).colorScheme.onSurface),
                             );
                           }
                           return const SizedBox.shrink();
@@ -421,7 +444,9 @@ class _BarChartSection extends StatelessWidget {
                             final d = DateTime(t.year, t.month);
                             return Text(
                               DateFormat.MMM().format(d),
-                              style: const TextStyle(fontSize: 14, color: Colors.black),
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: Theme.of(context).colorScheme.onSurface),
                             );
                           }
                           return const Text('');
@@ -439,14 +464,14 @@ class _BarChartSection extends StatelessWidget {
                         x: i,
                         barRods: [
                           BarChartRodData(
-                            toY: trends[i].income,
-                            color: AppColors.income,
+                            toY: trends[i].deposit,
+                            color: AppColors.deposit,
                             width: 8,
                             borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                           ),
                           BarChartRodData(
                             toY: trends[i].expense,
-                            color: AppColors.expense,
+                            color: AppColors.primary,
                             width: 8,
                             borderRadius: const BorderRadius.vertical(top: Radius.circular(4)),
                           ),
@@ -460,9 +485,9 @@ class _BarChartSection extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _LegendItem(color: AppColors.income, label: 'Income'),
+                _LegendItem(color: AppColors.deposit, label: 'Deposit'),
                 const SizedBox(width: 24),
-                _LegendItem(color: AppColors.expense, label: 'Expense'),
+                _LegendItem(color: AppColors.primary, label: 'Expense'),
               ],
             ),
           ],

@@ -8,7 +8,7 @@ part 'transaction.g.dart';
 CollectionSchema get transactionSchema => TransactionSchema;
 
 enum TransactionType {
-  income,
+  deposit,
   expense,
   transfer,
 }

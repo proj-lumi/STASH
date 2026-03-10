@@ -110,10 +110,13 @@ class _MonthSelector extends StatelessWidget {
           },
         ),
         Expanded(
-          child: Text(
-            monthName,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.titleMedium,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              monthName,
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
           ),
         ),
         IconButton(
@@ -150,15 +153,15 @@ class _TransactionTile extends StatelessWidget {
     final amount = transaction.amount;
     final dateTimeStr =
         DateFormat.yMMMd().add_jm().format(transaction.dateTime);
-    final isIncome = type == TransactionType.income;
+    final isDeposit = type == TransactionType.deposit;
     final isTransfer = type == TransactionType.transfer;
-    final amountColor = isIncome
-        ? AppColors.income
+    final amountColor = isDeposit
+        ? AppColors.deposit
         : isTransfer
             ? AppColors.transfer
-            : AppColors.expense;
+            : AppColors.primary;
     final typeLabel =
-        isIncome ? 'Income' : isTransfer ? 'Transfer' : 'Expense';
+        isDeposit ? 'Deposit' : isTransfer ? 'Transfer' : 'Expense';
 
     return FutureBuilder(
       future: transaction.category.load(),
@@ -172,7 +175,7 @@ class _TransactionTile extends StatelessWidget {
             leading: CircleAvatar(
               backgroundColor: amountColor.withOpacity(0.2),
               child: Icon(
-                isIncome
+                isDeposit
                     ? Icons.arrow_upward
                     : (isTransfer ? Icons.swap_horiz : Icons.arrow_downward),
                 color: amountColor,
@@ -193,11 +196,14 @@ class _TransactionTile extends StatelessWidget {
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 12),
-                  child: Text(
-                    '${isIncome ? '+' : '-'}₱${amount.toStringAsFixed(2)}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: amountColor,
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      '${isDeposit ? '+' : '-'}₱${amount.toStringAsFixed(2)}',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: amountColor,
+                      ),
                     ),
                   ),
                 ),

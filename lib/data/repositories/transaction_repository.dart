@@ -69,14 +69,14 @@ class TransactionRepository {
     });
   }
 
-  /// Total income for month (type == income).
-  Future<double> getMonthlyIncome(int year, int month) async {
+  /// Total deposit for month (type == deposit).
+  Future<double> getMonthlyDeposit(int year, int month) async {
     final start = DateTime(year, month, 1);
     final end = DateTime(year, month + 1, 0, 23, 59, 59, 999);
     final list = await _isar.transactions
         .filter()
         .dateTimeBetween(start, end, includeLower: true, includeUpper: true)
-        .typeEqualTo(TransactionType.income)
+        .typeEqualTo(TransactionType.deposit)
         .findAll();
     return list.fold<double>(0, (sum, t) => sum + t.amount);
   }
@@ -113,11 +113,11 @@ class TransactionRepository {
     return map;
   }
 
-  /// Income and expense totals for each of the previous N months (for bar chart).
-  Future<List<({int year, int month, double income, double expense})>>
+  /// Deposit and expense totals for each of the previous N months (for bar chart).
+  Future<List<({int year, int month, double deposit, double expense})>>
       getMonthlyTrends(int count) async {
     final now = DateTime.now();
-    final results = <({int year, int month, double income, double expense})>[];
+    final results = <({int year, int month, double deposit, double expense})>[];
     for (var i = 0; i < count; i++) {
       var y = now.year;
       var m = now.month - i;
@@ -125,9 +125,9 @@ class TransactionRepository {
         m += 12;
         y--;
       }
-      final income = await getMonthlyIncome(y, m);
+      final deposit = await getMonthlyDeposit(y, m);
       final expense = await getMonthlyExpense(y, m);
-      results.add((year: y, month: m, income: income, expense: expense));
+      results.add((year: y, month: m, deposit: deposit, expense: expense));
     }
     return results.reversed.toList();
   }

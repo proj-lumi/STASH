@@ -33,7 +33,7 @@ class AccountRepository {
     });
   }
 
-  /// Derived balance: initialBalance + sum(income + transfers in) - sum(expense + transfers out + transferFee).
+  /// Derived balance: initialBalance + sum(deposit + transfers in) - sum(expense + transfers out + transferFee).
   Future<double> getBalanceForAccount(Id accountId) async {
     final account = await _isar.accounts.get(accountId);
     if (account == null) return 0;
@@ -47,7 +47,7 @@ class AccountRepository {
 
     for (final t in asMain) {
       switch (t.type) {
-        case TransactionType.income:
+        case TransactionType.deposit:
           balance += t.amount;
           break;
         case TransactionType.expense:

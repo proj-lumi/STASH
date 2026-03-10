@@ -133,7 +133,7 @@ Transaction _transactionDeserialize(
   object.transferFee = reader.readDoubleOrNull(offsets[3]);
   object.type =
       _TransactiontypeValueEnumMap[reader.readByteOrNull(offsets[4])] ??
-          TransactionType.income;
+          TransactionType.deposit;
   return object;
 }
 
@@ -154,19 +154,19 @@ P _transactionDeserializeProp<P>(
       return (reader.readDoubleOrNull(offset)) as P;
     case 4:
       return (_TransactiontypeValueEnumMap[reader.readByteOrNull(offset)] ??
-          TransactionType.income) as P;
+          TransactionType.deposit) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
 }
 
 const _TransactiontypeEnumValueMap = {
-  'income': 0,
+  'deposit': 0,
   'expense': 1,
   'transfer': 2,
 };
 const _TransactiontypeValueEnumMap = {
-  0: TransactionType.income,
+  0: TransactionType.deposit,
   1: TransactionType.expense,
   2: TransactionType.transfer,
 };
