@@ -73,24 +73,37 @@ class TransactionRepository {
   Future<double> getMonthlyDeposit(int year, int month) async {
     final start = DateTime(year, month, 1);
     final end = DateTime(year, month + 1, 0, 23, 59, 59, 999);
-    final list = await _isar.transactions
+    final transactions = await _isar.transactions
         .filter()
         .dateTimeBetween(start, end, includeLower: true, includeUpper: true)
         .typeEqualTo(TransactionType.deposit)
         .findAll();
-    return list.fold<double>(0, (sum, t) => sum + t.amount);
+    
+    double total = 0;
+    for (final t in transactions) {
+      total += t.amount;
+    }
+    return total;
   }
 
   /// Total expense for month: type == expense (amount) + transfer fees.
   Future<double> getMonthlyExpense(int year, int month) async {
     final start = DateTime(year, month, 1);
     final end = DateTime(year, month + 1, 0, 23, 59, 59, 999);
-    final list = await _isar.transactions
+    final transactions = await _isar.transactions
         .filter()
         .dateTimeBetween(start, end, includeLower: true, includeUpper: true)
         .typeEqualTo(TransactionType.expense)
         .findAll();
-    return list.fold<double>(0, (sum, t) => sum + t.amount);
+    
+    double total = 0;
+    for (final t in transactions) {
+      total += t.amount;
+      if (t.transferFee != null) {
+        total += t.transferFee!;
+      }
+    }
+    return total;
   }
 
   /// Expense per category for the month. Map: categoryId -> total amount.

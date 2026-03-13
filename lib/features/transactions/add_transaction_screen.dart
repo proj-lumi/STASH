@@ -111,10 +111,25 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
           );
         }
       }
-      if (mounted) _showSnack('Saved');
+      if (mounted) {
+        _showSnack('Saved');
+        _clearForm();
+      }
     } catch (e) {
       if (mounted) _showSnack('Error: $e');
     }
+  }
+
+  void _clearForm() {
+    setState(() {
+      _amountController.clear();
+      _transferFeeController.text = '0';
+      _notesController.clear();
+      _selectedCategory = null;
+      _selectedAccount = null;
+      _fromAccount = null;
+      _toAccount = null;
+    });
   }
 
   void _showSnack(String msg) {
@@ -179,7 +194,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         color: selected ? AppColors.primary : Colors.transparent,
         borderRadius: BorderRadius.circular(AppTheme.radiusXl),
         child: InkWell(
-          onTap: () => setState(() => _type = type),
+          onTap: () {
+            setState(() {
+              _type = type;
+              _clearForm();
+            });
+          },
           borderRadius: BorderRadius.circular(AppTheme.radiusXl),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),

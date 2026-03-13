@@ -27,9 +27,30 @@ class AccountRepository {
     });
   }
 
-  Future<void> deleteAccount(Id id) async {
+  Future<void> deleteAccount(int accountId) async {
     await _isar.writeTxn(() async {
-      await _isar.accounts.delete(id);
+      // Get all transactions linked to this account
+      final transactionsToDelete = await _isar.transactions
+          .filter()
+          .account((q) => q.idEqualTo(accountId))
+          .findAll();
+      
+      // Also get related account transactions (transfers)
+      final relatedTransactions = await _isar.transactions
+          .filter()
+          .relatedAccount((q) => q.idEqualTo(accountId))
+          .findAll();
+      
+      // Delete all transaction IDs
+      final idsToDelete = [
+        ...transactionsToDelete.map((t) => t.id),
+        ...relatedTransactions.map((t) => t.id),
+      ].toSet().toList();
+      
+      await _isar.transactions.deleteAll(idsToDelete);
+      
+      // Finally delete the account
+      await _isar.accounts.delete(accountId);
     });
   }
 

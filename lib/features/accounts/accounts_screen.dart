@@ -73,15 +73,29 @@ class AccountsScreen extends ConsumerWidget {
       builder: (ctx) => AlertDialog(
         title: const Text('Delete account?'),
         content: Text(
-          'Delete "${account.name}"? This will not delete past transactions linked to it.',
+          'Delete "${account.name}"? Transactions will be kept but no longer linked to this account.',
         ),
         actions: [
           TextButton(
               onPressed: () => Navigator.pop(ctx), child: const Text('Cancel')),
           TextButton(
             onPressed: () async {
-              await accountRepo.deleteAccount(account.id);
-              if (ctx.mounted) Navigator.pop(ctx);
+              try {
+                await accountRepo.deleteAccount(account.id);
+                if (ctx.mounted) {
+                  Navigator.pop(ctx);
+                  ScaffoldMessenger.of(ctx).showSnackBar(
+                    const SnackBar(content: Text('Account deleted')),
+                  );
+                }
+              } catch (e) {
+                if (ctx.mounted) {
+                  Navigator.pop(ctx);
+                  ScaffoldMessenger.of(ctx).showSnackBar(
+                    SnackBar(content: Text('Error: $e')),
+                  );
+                }
+              }
             },
             child: const Text('Delete', style: TextStyle(color: AppColors.destructive)),
           ),
