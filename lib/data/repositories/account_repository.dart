@@ -42,10 +42,10 @@ class AccountRepository {
           .findAll();
       
       // Delete all transaction IDs
-      final idsToDelete = [
+      final idsToDelete = {
         ...transactionsToDelete.map((t) => t.id),
         ...relatedTransactions.map((t) => t.id),
-      ].toSet().toList();
+      }.toList();
       
       await _isar.transactions.deleteAll(idsToDelete);
       

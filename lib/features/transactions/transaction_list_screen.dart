@@ -173,7 +173,7 @@ class _TransactionTile extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 8),
           child: ListTile(
             leading: CircleAvatar(
-              backgroundColor: amountColor.withOpacity(0.2),
+              backgroundColor: amountColor.withValues(alpha: 0.2),
               child: Icon(
                 isDeposit
                     ? Icons.arrow_upward

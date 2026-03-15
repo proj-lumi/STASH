@@ -224,7 +224,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Amount', style: Theme.of(context).textTheme.titleSmall),
+            Row(
+              children: [
+                Text('Amount', style: Theme.of(context).textTheme.titleSmall),
+                const Text(' *', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+              ],
+            ),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -270,8 +275,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Category', style: Theme.of(context).textTheme.titleSmall),
-            const SizedBox(height: 8),
+            Row(
+              children: [
+                Text('Category', style: Theme.of(context).textTheme.titleSmall),
+                const Text(' *', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+              ],
+            ),
             StreamBuilder<List<Category>>(
               stream: list?.asBroadcastStream() ?? Stream.value([]),
               builder: (context, snapshot) {
@@ -310,8 +319,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Account', style: Theme.of(context).textTheme.titleSmall),
-            const SizedBox(height: 8),
+            Row(
+              children: [
+                Text('Account', style: Theme.of(context).textTheme.titleSmall),
+                const Text(' *', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+              ],
+            ),
             StreamBuilder<List<Account>>(
               stream: list?.asBroadcastStream() ?? Stream.value([]),
               builder: (context, snapshot) {
@@ -358,8 +371,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('From account', style: Theme.of(context).textTheme.titleSmall),
-                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Text('From account', style: Theme.of(context).textTheme.titleSmall),
+                        const Text(' *', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
                     DropdownButtonFormField<Account?>(
                       initialValue: fromVal,
                       items: [
@@ -379,8 +396,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('To account', style: Theme.of(context).textTheme.titleSmall),
-                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Text('To account', style: Theme.of(context).textTheme.titleSmall),
+                        const Text(' *', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+                      ],
+                    ),
                     DropdownButtonFormField<Account?>(
                       initialValue: toVal,
                       items: [
@@ -406,7 +427,12 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Transfer fee (optional)', style: Theme.of(context).textTheme.titleSmall),
+            Row(
+              children: [
+                Text('Transfer fee (optional)', style: Theme.of(context).textTheme.titleSmall),
+                const Text(' *', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+              ],
+            ),
             const SizedBox(height: 8),
             Row(
               children: [

@@ -11,7 +11,7 @@ class AppColors {
   /// - #133863
   /// - #091D34 (darkest)
   static const Color backgroundLight = Color(0xFFE1ECF9);
-  // grayscale dark background, no blue tint
+  // gray scale dark background, no blue tint
   static const Color backgroundDark = Color(0xFF101010);
 
   static const Color foregroundLight = Color(0xFF1F1F1F);
@@ -153,7 +153,7 @@ class AppTheme {
         ),
       ),
       cardTheme: CardThemeData(
-        color: AppColors.accent.withOpacity(0.15),
+        color: AppColors.accent.withValues(alpha: 0.15),
         elevation: 1,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(radiusCard),
@@ -161,7 +161,7 @@ class AppTheme {
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.accent.withOpacity(0.15),
+        fillColor: AppColors.accent.withValues(alpha: 0.15),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(radiusXl),
         ),
