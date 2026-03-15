@@ -1,5 +1,7 @@
-import 'package:stash/core/theme/app_theme.dart';
+import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
+import 'package:stash/core/theme/app_theme.dart';
 
 class TutorialScreen extends StatelessWidget {
   const TutorialScreen({super.key});
@@ -15,7 +17,7 @@ class TutorialScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _VideoPlaceholder(),
+            const _YoutubeEmbed(),
             const SizedBox(height: 24),
             Text(
               'Step-by-Step Guide',
@@ -55,7 +57,10 @@ class TutorialScreen extends StatelessWidget {
             Text(
               'All data is stored on your device. No account or internet required.',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onSurface
+                        .withValues(alpha: 0.7),
                   ),
               textAlign: TextAlign.center,
             ),
@@ -67,27 +72,185 @@ class TutorialScreen extends StatelessWidget {
   }
 }
 
-class _VideoPlaceholder extends StatelessWidget {
+class _YoutubeEmbed extends StatefulWidget {
+  const _YoutubeEmbed();
+
+  @override
+  State<_YoutubeEmbed> createState() => _YoutubeEmbedState();
+}
+
+class _YoutubeEmbedState extends State<_YoutubeEmbed> {
+  late VideoPlayerController _videoController;
+  ChewieController? _chewieController;
+  bool _hasError = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _initPlayer();
+  }
+
+  Future<void> _initPlayer() async {
+    try {
+      _videoController = VideoPlayerController.asset(
+        'assets/tutorial.mp4',
+      );
+
+      final bundle = DefaultAssetBundle.of(context);
+      await _videoController.initialize();
+      final vttString = await bundle.loadString('assets/tutorial.vtt');
+
+      _chewieController = ChewieController(
+        videoPlayerController: _videoController,
+        aspectRatio: 16 / 9,
+        autoPlay: false,
+        looping: false,
+        allowFullScreen: true,
+        allowMuting: true,
+        subtitle: Subtitles(_parseVtt(vttString)),
+        subtitleBuilder: (context, subtitle) => subtitle.isNotEmpty
+            ? Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                decoration: BoxDecoration(
+                  color: Colors.black54,
+                  borderRadius: BorderRadius.circular(4),
+                ),
+                child: Text(
+                  subtitle,
+                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                  textAlign: TextAlign.center,
+                ),
+              )
+            : const SizedBox.shrink(),
+      );
+
+      setState(() {});
+    } catch (e) {
+      setState(() => _hasError = true);
+    }
+  }
+
+  List<Subtitle> _parseVtt(String vtt) {
+    final subtitles = <Subtitle>[];
+    final lines = vtt.replaceAll('\r\n', '\n').split('\n');
+    int index = 0;
+    int i = 0;
+
+    while (i < lines.length) {
+      final line = lines[i].trim();
+      if (line.isEmpty ||
+          line == 'WEBVTT' ||
+          line.startsWith('NOTE') ||
+          RegExp(r'^\d+$').hasMatch(line)) {
+        i++;
+        continue;
+      }
+
+      if (line.contains('-->')) {
+        final parts = line.split('-->');
+        final start = _parseVttTime(parts[0].trim());
+        final end = _parseVttTime(parts[1].trim().split(' ')[0]);
+
+        final textLines = <String>[];
+        i++;
+        while (i < lines.length && lines[i].trim().isNotEmpty) {
+          final cleaned =
+              lines[i].trim().replaceAll(RegExp(r'<[^>]+>'), '');
+          if (cleaned.isNotEmpty) textLines.add(cleaned);
+          i++;
+        }
+
+        if (textLines.isNotEmpty) {
+          subtitles.add(Subtitle(
+            index: index++,
+            start: start,
+            end: end,
+            text: textLines.join('\n'),
+          ));
+        }
+        continue;
+      }
+
+      i++;
+    }
+
+    return subtitles;
+  }
+
+  Duration _parseVttTime(String time) {
+    final parts = time.split(':');
+    if (parts.length == 3) {
+      final hours = int.parse(parts[0]);
+      final minutes = int.parse(parts[1]);
+      final secParts = parts[2].split('.');
+      final seconds = int.parse(secParts[0]);
+      final millis =
+          int.parse(secParts[1].padRight(3, '0').substring(0, 3));
+      return Duration(
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds,
+          milliseconds: millis);
+    } else {
+      final minutes = int.parse(parts[0]);
+      final secParts = parts[1].split('.');
+      final seconds = int.parse(secParts[0]);
+      final millis =
+          int.parse(secParts[1].padRight(3, '0').substring(0, 3));
+      return Duration(
+          minutes: minutes, seconds: seconds, milliseconds: millis);
+    }
+  }
+
+  @override
+  void dispose() {
+    _videoController.dispose();
+    _chewieController?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: 16 / 9,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(AppTheme.radiusCard),
-          gradient: const LinearGradient(
-            colors: [AppColors.primary, AppColors.accent],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+    if (_hasError) {
+      return AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(AppTheme.radiusCard),
+          ),
+          child: const Center(
+            child: Text(
+              'Could not load video.',
+              style: TextStyle(color: Colors.white),
+            ),
           ),
         ),
-        child: Center(
-          child: Icon(
-            Icons.play_circle_fill,
-            size: 64,
-            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.54),
+      );
+    }
+
+    if (_chewieController == null) {
+      return AspectRatio(
+        aspectRatio: 16 / 9,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(AppTheme.radiusCard),
+          ),
+          child: const Center(
+            child: CircularProgressIndicator(color: Colors.white),
           ),
         ),
+      );
+    }
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(AppTheme.radiusCard),
+      child: SizedBox(
+        width: double.infinity,
+        height: MediaQuery.of(context).size.width * 9 / 16,
+        child: Chewie(controller: _chewieController!),
       ),
     );
   }
