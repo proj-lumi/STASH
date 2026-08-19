@@ -49,4 +49,4 @@ Built as a three-person team for **CCS 8 (Human–Computer Interaction)** at Sil
 - **Accessibility.** Light/dark mode and adjustable font size.
 - **One-handed use.** Content stays within a comfortable reading width on larger screens.
 
-> ℹ️ `assets/tutorial.mp4` is intentionally **not** in this repo (16MB — it'd slow every clone). Drop it into `assets/` before building, or just watch the video on YouTube.
+> ℹ️ The in-app tutorial video ships in `assets/tutorial.mp4` (also on [YouTube](https://youtu.be/wMN_7Li9j-I)).
