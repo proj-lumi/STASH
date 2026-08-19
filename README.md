@@ -2,11 +2,7 @@
 
 A fully offline budgeting app for tracking income, expenses, and transfers across multiple accounts, with per-category budgets and spending statistics.
 
-<video src="docs/demo.mp4" autoplay muted loop playsinline>
-  Your browser does not support the video tag.
-</video>
-
-*Stash app tutorial demo*
+![Stash app tutorial demo](docs/demo.gif)
 
 ---
 
