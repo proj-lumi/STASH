@@ -6,7 +6,7 @@ Final project for **CCS 8 (Human–Computer Interaction)**, Silliman University 
 
 ![Stash app tutorial demo](docs/demo.gif)
 
-> 🎬 **Watch the tutorial** — full video: [Stash tutorial video](docs/demo.mp4), or from inside the app under *Tutorial*.
+> 🎬 **Watch the tutorial** — on [YouTube](https://youtu.be/wMN_7Li9j-I), or from inside the app under *Tutorial*.
 
 ---
 
