@@ -4,7 +4,9 @@ A fully offline mobile budgeting app that tracks income, expenses, and transfers
 
 Final project for **CCS 8 (Human–Computer Interaction)**, Silliman University College of Computer Studies. Built as a team of three; our first Flutter project.
 
-> 🎬 **Watch the tutorial** — see the app in action: [Stash tutorial video](docs/demo.mp4) (also available inside the app under *Tutorial*).
+![Stash app tutorial demo](docs/demo.gif)
+
+> 🎬 **Watch the tutorial** — full video: [Stash tutorial video](docs/demo.mp4), or from inside the app under *Tutorial*.
 
 ---
 
