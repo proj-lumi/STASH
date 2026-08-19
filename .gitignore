@@ -117,3 +117,5 @@ app.*.symbols
 !**/ios/**/default.perspectivev3
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 !/dev/ci/**/Gemfile.lock
+# Large app asset kept out of git (16MB); add manually or watch the YouTube link in README
+assets/tutorial.mp4
