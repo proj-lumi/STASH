@@ -48,5 +48,3 @@ Built as a three-person team for **CCS 8 (Human–Computer Interaction)** at Sil
 - **Iterative user testing.** Each testing round produced concrete fixes — clearer form validation, a required transfer-fee field, and a calmer visual tone (visible in the commit history).
 - **Accessibility.** Light/dark mode and adjustable font size.
 - **One-handed use.** Content stays within a comfortable reading width on larger screens.
-
-> ℹ️ The in-app tutorial video ships in `assets/tutorial.mp4` (also on [YouTube](https://youtu.be/wMN_7Li9j-I)).
